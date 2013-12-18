@@ -22,9 +22,10 @@ define([
     // This will set up graphics, sound, input, data, plugins, and start our game loop:
     cg.init({
       name: 'Combo-Rogue',
-      width: 1280,
-      height: 720,
-      backgroundColor: 0x222222,
+      width: 160,
+      height: 160,
+      displayMode: 'pixel',
+      backgroundColor: 0x000000,
       forceCanvas: !!parseInt(cg.env.getParameterByName('forceCanvas'))
     });
 
