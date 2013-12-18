@@ -1,10 +1,12 @@
 {
   "textures": {
-    "bg": "assets/bg.png"
+    "bg": "assets/bg.png",
+    "title": "assets/title.png"
   },
   "sheets": {
   },
   "fonts": {
+    "font": "assets/font.png"
   },
   "sounds": {
   },

@@ -1,7 +1,9 @@
 define([
-  'cs!combo/cg'
+  'cs!combo/cg',
+  'TitleScreen'
 ], function (
-  cg
+  cg,
+  TitleScreen
 ) {
 
   var ComboRogue = cg.Scene.extend('ComboRogue', {
@@ -11,6 +13,8 @@ define([
       this.bg = this.addChild(new cg.SpriteActor({
         texture: 'bg'
       }));
+
+      this.title = this.addChild(new TitleScreen);
     },
 
     update: function () {
