@@ -38,8 +38,8 @@ define([
       });
 
       this.title.animate(
-        ['alpha', '-0.4', 1000],
-        ['alpha', '+0.4', 2000]
+        ['alpha', 0.6, 1000],
+        ['alpha',   1, 2000]
       );
 
       this.text.blink();
