@@ -22,11 +22,16 @@ define([
         x: cg.width/2,
         y: cg.height - 30
       }));
+
     },
 
     splash: function () {
+      this.x = 0;
+      this.y = 0;
+
       this.title.y = cg.height;
       this.title.scale = 0;
+      this.title.alpha = 1;
 
       this.title.tween({
         values: {
@@ -43,6 +48,14 @@ define([
       );
 
       this.text.blink();
+
+      this.once(cg.input, 'mouseDown', this.splashOut);
+    },
+
+    splashOut: function () {
+      this.tween('y', cg.height, 1000).then(function () {
+        this.once(cg.input, 'mouseDown', this.splash);
+      });
     },
 
     update: function () {
