@@ -1,7 +1,9 @@
 define([
-  'cs!combo/cg'
+  'cs!combo/cg',
+  'Player'
 ], function (
-  cg
+  cg,
+  Player
 ) {
 
   var Game = cg.Scene.extend('Game', {
@@ -16,10 +18,11 @@ define([
         y: 2
       }));
 
-      this.on(cg.input, 'mouseDown', function () {
-        this.score += cg.rand.i(1,50);
-        this.scoreText.string = this.score.toString();
-      });
+      this.player = this.addChild(new Player({
+        id: 'player',
+        x: cg.width/2,
+        y: cg.height/2
+      }));
     },
 
     update: function () {

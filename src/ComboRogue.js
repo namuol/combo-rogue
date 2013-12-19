@@ -12,6 +12,8 @@ define([
     constructor: function (properties) {
       this._super(properties);
 
+      cg.physics.gravity.zero();
+
       this.bg = this.addChild(new cg.SpriteActor({
         texture: 'bg'
       }));

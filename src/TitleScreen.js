@@ -22,7 +22,6 @@ define([
         x: cg.width/2,
         y: cg.height - 30
       }));
-
     },
 
     splash: function () {
