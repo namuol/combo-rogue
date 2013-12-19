@@ -11,11 +11,12 @@ define([
     constructor: function (properties) {
       this._super(properties);
 
+      this.texture = 'player';
+
       this.body.bounce = 0;
+
       this.body.width = this.width;
       this.body.height = this.height;
-
-      this.texture = 'player';
 
       this.controls = cg.input.controls.player;
       this.speed = 60;
