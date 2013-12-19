@@ -11,13 +11,14 @@ define([
     constructor: function (properties) {
       this._super(properties);
 
-      this.anchorX = 0.5;
-      this.anchorY = 0.75;
+      this.body.bounce = 0;
+      this.body.width = this.width;
+      this.body.height = this.height;
 
       this.texture = 'player';
 
       this.controls = cg.input.controls.player;
-      this.speed = 40;
+      this.speed = 60;
 
       this.on('vx', function (value) {
         this.body.v.x = value * this.speed;
