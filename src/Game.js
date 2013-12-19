@@ -23,6 +23,8 @@ define([
         x: cg.width/2,
         y: cg.height/2
       }));
+
+      this.scoreText.bringToFront();
     },
 
     update: function () {
