@@ -13,16 +13,33 @@ define([
         texture: 'title',
         anchorX: 0.5,
         anchorY: 0.5,
-        x: cg.width/2,
-        y: cg.height/2
+        x: cg.width/2
       }));
 
-      this.addChild(new cg.Text('click to play', {
+      this.text = this.addChild(new cg.Text('click to play', {
         align: 'center',
         font: 'font',
         x: cg.width/2,
         y: cg.height - 30
       }));
+    },
+
+    splash: function () {
+      this.title.y = cg.height;
+      this.title.scale = 0;
+      this.title.alpha = 0;
+
+      this.title.tween({
+        values: {
+          scale: 1,
+          alpha: 1,
+          y: cg.height/2
+        },
+        easeFunc: 'elastic.out',
+        duration: 1000
+      });
+
+      this.text.blink();
     },
 
     update: function () {

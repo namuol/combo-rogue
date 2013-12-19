@@ -14,7 +14,10 @@ define([
         texture: 'bg'
       }));
 
-      this.title = this.addChild(new TitleScreen);
+      this.title = this.addChild(new TitleScreen({
+        id: 'titlescreen'
+      }));
+      this.title.splash();
     },
 
     update: function () {
