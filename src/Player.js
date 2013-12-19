@@ -7,11 +7,25 @@ define([
 ) {
 
   var Player = cg.SpriteActor.extend('Player', {
-    anchorX: 0.5,
-    anchorY: 0.75,
-    texture: 'player',
+
     constructor: function (properties) {
       this._super(properties);
+
+      this.anchorX = 0.5;
+      this.anchorY = 0.75;
+
+      this.texture = 'player';
+
+      this.controls = cg.input.controls.player;
+      this.speed = 40;
+
+      this.on('vx', function (value) {
+        this.body.v.x = value * this.speed;
+      });
+
+      this.on('vy', function (value) {
+        this.body.v.y = value * this.speed;
+      });
     },
 
     update: function () {

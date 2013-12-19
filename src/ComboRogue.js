@@ -14,6 +14,11 @@ define([
 
       cg.physics.gravity.zero();
 
+      cg.input.map('player', {
+        vx: ['a/d', 'left/right'],
+        vy: ['w/s', 'up/down']
+      });
+
       this.bg = this.addChild(new cg.SpriteActor({
         texture: 'bg'
       }));
