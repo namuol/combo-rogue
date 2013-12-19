@@ -27,17 +27,20 @@ define([
     splash: function () {
       this.title.y = cg.height;
       this.title.scale = 0;
-      this.title.alpha = 0;
 
       this.title.tween({
         values: {
           scale: 1,
-          alpha: 1,
           y: cg.height/2
         },
         easeFunc: 'elastic.out',
         duration: 1000
       });
+
+      this.title.animate(
+        ['alpha', '-0.2', 250],
+        ['alpha', '+0.2', 250]
+      );
 
       this.text.blink();
     },
