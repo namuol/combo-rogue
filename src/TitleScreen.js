@@ -6,7 +6,7 @@ define([
 
   var TitleScreen = cg.Scene.extend('TitleScreen', {
     constructor: function (properties) {
-      this.super(properties);
+      this._super(properties);
 
       this.title = this.addChild(new cg.SpriteActor({
         id: 'title',
@@ -54,12 +54,12 @@ define([
 
     splashOut: function () {
       this.tween('y', cg.height, 1000).then(function () {
-        this.once(cg.input, 'mouseDown', this.splash);
+        this.emit('done');
       });
     },
 
     update: function () {
-      this.super();
+      this._super();
     }
   });
 

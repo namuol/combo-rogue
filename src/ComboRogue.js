@@ -1,14 +1,16 @@
 define([
   'cs!combo/cg',
-  'TitleScreen'
+  'TitleScreen',
+  'Game'
 ], function (
   cg,
-  TitleScreen
+  TitleScreen,
+  Game
 ) {
 
   var ComboRogue = cg.Scene.extend('ComboRogue', {
     constructor: function (properties) {
-      this.super(properties);
+      this._super(properties);
 
       this.bg = this.addChild(new cg.SpriteActor({
         texture: 'bg'
@@ -18,10 +20,20 @@ define([
         id: 'titlescreen'
       }));
       this.title.splash();
+
+      this.game = this.addChild(new Game({
+        id: 'game'
+      }));
+
+      this.game.pause().hide();
+
+      this.on(this.title, 'done', function () {
+        this.game.resume().show();
+      });
     },
 
     update: function () {
-      this.super();
+      this._super();
     }
   });
 
