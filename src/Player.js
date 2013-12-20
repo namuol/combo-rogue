@@ -39,6 +39,7 @@ define([
 
     shoot: function () {
       cg('#game').addChild(new Projectile({
+        className: 'playerBullets',
         x: this.x,
         y: this.y,
         v: this.vecToMouse().mag(150),

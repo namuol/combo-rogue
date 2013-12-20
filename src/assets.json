@@ -2,13 +2,15 @@
   "textures": {
     "bg": "assets/bg.png",
     "title": "assets/title.png",
-    "player": "assets/player.png"
+    "player": "assets/player.png",
+    "slime": "assets/slime.png"
   },
   "sheets": {
     "projectiles": ["assets/projectiles.png", 8, 7]
   },
   "fonts": {
-    "font": "assets/font.png"
+    "font": "assets/font.png",
+    "small": "assets/small.png"
   },
   "sounds": {
   },

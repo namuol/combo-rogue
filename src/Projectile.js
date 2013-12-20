@@ -13,6 +13,8 @@ define([
 
       this.body.v.set(this.v || new Vector2());
 
+      this.power = this.power || 1;
+
       this.anchorX = 0.5;
       this.anchorY = 0.5;
 
@@ -26,6 +28,10 @@ define([
 
       // Disable wall bouncing by default:
       this.body.bounded = this.bounded || false;
+    },
+
+    hit: function (object) {
+      this.destroy();
     },
 
     update: function () {
