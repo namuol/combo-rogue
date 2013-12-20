@@ -39,7 +39,8 @@ define([
         x: this.x + 2,
         y: this.y + 2,
         v: this.vecToMouse().mag(150),
-        texture: cg.sheets.projectiles[0]
+        texture: cg.sheets.projectiles[0],
+        ttl: 750
       }));
     },
 
