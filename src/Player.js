@@ -46,6 +46,12 @@ define([
 
     update: function () {
       this._super();
+
+      if (cg.input.mouse.x < this.x) {
+        this.flipX = true;
+      } else {
+        this.flipX = false;
+      }
     }
   });
 
