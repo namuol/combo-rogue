@@ -25,8 +25,6 @@ define([
       }));
 
       this.scoreText.bringToFront();
-
-      this.mouseGfx = this.addChild(new cg.rendering.Graphics);
     },
 
     update: function () {

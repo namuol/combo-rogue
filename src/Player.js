@@ -9,16 +9,19 @@ define([
 ) {
 
   var Player = cg.SpriteActor.extend('Player', {
-
     constructor: function (properties) {
       this._super(properties);
 
       this.texture = 'player';
 
-      this.body.bounce = 0;
+      this.anchorX = 0.5;
+      this.anchorY = 0.5;
 
+      this.body.bounce = 0;
       this.body.width = this.width;
       this.body.height = this.height;
+      this.body.offset.x = -this.width/2;
+      this.body.offset.y = -this.height/2;
 
       this.controls = cg.input.controls.player;
       this.speed = 60;
@@ -36,8 +39,8 @@ define([
 
     shoot: function () {
       cg('#game').addChild(new Projectile({
-        x: this.x + 2,
-        y: this.y + 2,
+        x: this.x,
+        y: this.y,
         v: this.vecToMouse().mag(150),
         texture: cg.sheets.projectiles[0],
         ttl: 750
@@ -52,6 +55,7 @@ define([
       } else {
         this.flipX = false;
       }
+
     }
   });
 
