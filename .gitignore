@@ -1,3 +1,4 @@
 node_modules
 src/support
 dist
+src/main-built.js

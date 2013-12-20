@@ -1,9 +1,11 @@
 define([
   'cs!combo/cg',
-  'cs!combo/plugins/physics/Physical'
+  'cs!combo/plugins/physics/Physical',
+  'Projectile'
 ], function (
   cg,
-  Physical
+  Physical,
+  Projectile
 ) {
 
   var Player = cg.SpriteActor.extend('Player', {
@@ -28,6 +30,17 @@ define([
       this.on('vy', function (value) {
         this.body.v.y = value * this.speed;
       });
+
+      this.on(cg.input, 'mouseDown', this.shoot);
+    },
+
+    shoot: function () {
+      cg('#game').addChild(new Projectile({
+        x: this.x + 2,
+        y: this.y + 2,
+        v: this.vecToMouse().mag(150),
+        texture: cg.sheets.projectiles[0]
+      }));
     },
 
     update: function () {

@@ -5,6 +5,7 @@
     "player": "assets/player.png"
   },
   "sheets": {
+    "projectiles": ["assets/projectiles.png", 8, 7]
   },
   "fonts": {
     "font": "assets/font.png"
