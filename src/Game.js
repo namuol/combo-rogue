@@ -2,18 +2,21 @@ define([
   'cs!combo/cg',
   'Player',
   'Slime',
+  'Skeleton',
   'Coin'
 ], function (
   cg,
   Player,
   Slime,
+  Skeleton,
   Coin
 ) {
 
   // We only have one kind of enemy right now, but we can
   //  easily add new ones.
   var ENEMY_TYPES = [
-    Slime
+    Slime,
+    Skeleton
   ];
 
   var ITEM_TYPES = [
@@ -113,9 +116,17 @@ define([
       this.nextItemEvent = this.delay(cg.rand(1000,10000), this.spawnItem);
     },
 
-    score: function (amount) {
+    score: function (amount, x, y) {
       if (arguments.length == 0) {
         return this._score;
+      }
+
+      if (amount == 0) {
+        return;
+      }
+
+      if (!this.player.alive) {
+        return;
       }
 
       this._score += amount;
@@ -123,8 +134,21 @@ define([
       if (this._score > this.highScore) {
         this.highScore = this._score;
       }
-
       this.scoreText.string = this._score.toString();
+
+      var tinyScore = this.addChild(new cg.Text(amount, {
+        font: 'tiny',
+        x: x || this.player.x,
+        y: y || this.player.y - 8,
+        align: 'center'
+      }));
+
+      tinyScore.tween('y', '-8', 250, 'elastic.out');
+
+      this.delay(500, function () {
+        tinyScore.hide(250, tinyScore.destroy);
+      });
+
       return this._score;
     },
 

@@ -7,11 +7,13 @@
   },
   "sheets": {
     "projectiles": ["assets/projectiles.png", 8, 7],
-    "coins": ["assets/coins.png", 7,7]
+    "coins": ["assets/coins.png", 7,7],
+    "skeletons": ["assets/skeletons.png", 8,8]
   },
   "fonts": {
     "font": "assets/font.png",
-    "small": "assets/small.png"
+    "small": "assets/small.png",
+    "tiny": "assets/tiny.png"
   },
   "sounds": {
   },

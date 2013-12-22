@@ -20,8 +20,8 @@ define([
       this.anchorY = 0.5;
       this.body.width = 13;
       this.body.height = 13;
-      this.body.offset.x = -8;
-      this.body.offset.y = -8;
+      this.body.offset.x = -6.5;
+      this.body.offset.y = -6.5;
 
       this.delay(this.ttl-this.gracePeriod).then(function () {
         this.blink(100);
@@ -45,7 +45,11 @@ define([
     },
 
     collect: function (player) {
-      cg('#game').score(this.scoreValue);
+      if (!player.alive) {
+        return;
+      }
+
+      cg('#game').score(this.scoreValue, this.x, this.y);
       this.scale = 1.5;
       this.active = false;
       this.blink(false);

@@ -13,17 +13,17 @@ define([
       this.speed = this.speed || 0;
       this.scoreValue = this.scoreValue || 50;
 
-      this.activate(function () {
-        this.active = true;
-        this.addClass('enemies');
-      });
-
       this.anchorX = 0.5;
       this.anchorY = 0.5;
       this.body.width = 8;
       this.body.height = 8;
       this.body.offset.x = -4;
       this.body.offset.y = -4;
+
+      this.activate(function () {
+        this.active = true;
+        this.addClass('enemies');
+      });
     },
 
     activate: function (callback) {
@@ -36,11 +36,17 @@ define([
     hitBy: function (bullet) {
       this.body.v.set(bullet.v.mul(0.8));
 
-      this.health -= bullet.power;
+      var scale;
+      if (bullet.power !== 0) {
+        this.health -= bullet.power;
+        this.scale = this.scale*1.5;
+        this.tween('scale', this.scale/1.5, 200, 'elastic.out');
+      }
+
       if (this.health <= 0) {
         this.die();
         this.active = false;
-        cg('#game').score(this.scoreValue);
+        cg('#game').score(this.scoreValue, this.x, this.y);
       }
       bullet.hit(this);
     },
@@ -50,10 +56,6 @@ define([
     },
 
     update: function () {
-      if (!this.active) {
-        return;
-      }
-
       this._super();
 
       this.body.v.limit(this.speed);
