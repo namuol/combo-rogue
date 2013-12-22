@@ -53,6 +53,10 @@ define([
       this.scale = 1.5;
       this.active = false;
       this.blink(false);
+
+      if (this.collectSound) {
+        this.collectSound.play(0.5);
+      }
       this.tween('scale', 0, 100, 'quad.out').then(function () {
         this.destroy();
       });

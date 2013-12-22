@@ -32,13 +32,13 @@ define([
       this.speed = 15;
       this.addClass('skeletons');
       this.type = this.type || cg.rand([0,1,2]);
-      this.texture = cg.sheets.skeletons[this.type];
 
       // Skeletons drop coins, instead:
       this.scoreValue = 0;
 
       switch(this.type) {
-      case 0:
+      default:
+        this.type = 0;
         this.shielded = false;
         this.health = 3;
         break;
@@ -50,6 +50,14 @@ define([
         this.shielded = true;
         this.health = 8;
       }
+
+      this.sheet = cg.sheets['skeleton'+this.type];
+      this.textures = {
+        normal: this.sheet[0],
+        drawn: this.sheet[1],
+        swung: this.sheet[2]
+      }
+      this.texture = this.textures.normal;
 
       this.following = true;
       this.range = 30;
@@ -75,6 +83,7 @@ define([
         bullet.power = 0;
         this._super(bullet);
         this.body.v.zero();
+        cg.sounds.shielded.play()
       } else {
         this.swingCanceled = true;
         this.following = true;
@@ -107,6 +116,7 @@ define([
     },
 
     swing: function () {
+      this.texture = this.textures.drawn;
       this.following = false;
       this.shielded = false;
       this.swingCanceled = false;
@@ -114,9 +124,11 @@ define([
       this.blink(50, 10, 250);
 
       var toPlayer = this.vecTo(cg('#player')).norm();
+      cg.sounds.windup.play(0.5);
       this.swingDelay = this.delay(500, function () {
 
         if (!this.swingCanceled) {
+          this.texture = this.textures.swung;
           this.sword = cg('#game').addChild(new SwordSwing({
             className: 'enemies playerBullets',
             x: this.x + toPlayer.x * 3,
@@ -128,7 +140,9 @@ define([
         this.delay(250, function () {
           this.shielded = true;
           this.following = true;
+          this.texture = this.textures.normal;
         });
+        cg.sounds.swordSwing.play(cg.rand(0.4,0.8));
       });
     },
 

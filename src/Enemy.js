@@ -24,6 +24,11 @@ define([
         this.active = true;
         this.addClass('enemies');
       });
+
+      this.hitSound = this.hitSound || cg.sounds.hit;
+      if (this.spawnSound) {
+        this.spawnSound.play(0.5);
+      }
     },
 
     activate: function (callback) {
@@ -41,6 +46,7 @@ define([
         this.health -= bullet.power;
         this.scale = this.scale*1.5;
         this.tween('scale', this.scale/1.5, 200, 'elastic.out');
+        this.hitSound.play(cg.rand(0.5, 0.8));
       }
 
       if (this.health <= 0) {
@@ -48,6 +54,7 @@ define([
         this.active = false;
         cg('#game').score(this.scoreValue, this.x, this.y);
       }
+
       bullet.hit(this);
     },
 

@@ -47,6 +47,7 @@ define([
     },
 
     shoot: function () {
+      cg.sounds.shoot.play(0.9);
       cg('#game').addChild(new Projectile({
         className: 'playerBullets',
         x: this.x,
@@ -63,6 +64,7 @@ define([
       cg('#main').set('shake', 5).tween('shake', 0, 500);
       cg('#gameOver').splash();
       this.pause();
+      cg.sounds.gameover.play(0.8);
     },
 
     update: function () {

@@ -45,9 +45,16 @@ define([
         this.scoreValue = 250;
         break;
       default: // copper
+        this.type = 'copper';
         this.texture = cg.sheets.coins[0];
         this.scoreValue = 100;
       }
+
+      this.collectSound = cg.sounds[this.type];
+    },
+
+    collect: function (player) {
+      this._super(player);
     },
 
     update: function () {

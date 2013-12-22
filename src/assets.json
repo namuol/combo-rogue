@@ -8,7 +8,9 @@
   "sheets": {
     "projectiles": ["assets/projectiles.png", 8, 7],
     "coins": ["assets/coins.png", 7,7],
-    "skeletons": ["assets/skeletons.png", 8,8]
+    "skeleton0": ["assets/skeleton0.png", 8,8],
+    "skeleton1": ["assets/skeleton1.png", 8,8],
+    "skeleton2": ["assets/skeleton2.png", 8,8]
   },
   "fonts": {
     "font": "assets/font.png",
@@ -16,6 +18,17 @@
     "tiny": "assets/tiny.png"
   },
   "sounds": {
+    "copper": "assets/copper.*",
+    "silver": "assets/silver.*",
+    "gold": "assets/gold.*",
+    "shoot": "assets/shoot.*",
+    "hit": "assets/hit.*",
+    "shielded": "assets/shielded.*",
+    "gameover": "assets/gameover.*",
+    "banshee": "assets/banshee.*",
+    "windup": "assets/windup.*",
+    "swordSwing": "assets/swordSwing.*",
+    "die1": "assets/die1.*"
   },
   "music": {
   },
