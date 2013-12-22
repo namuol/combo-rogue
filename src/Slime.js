@@ -24,7 +24,10 @@ define([
         return;
       }
 
-      this.body.v.$add(this.vecTo(cg('#player')).mag(2));
+      var player = cg('#player');
+      if (player) {
+        this.body.v.$add(this.vecTo(player).mag(2));
+      }
 
       // Note: We call _super *after* setting `this.body.v` because
       //  it automatically caps it at `this.speed`:

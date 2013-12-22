@@ -15,6 +15,7 @@ define([
 
       this.activate(function () {
         this.active = true;
+        this.addClass('enemies');
       });
 
       this.anchorX = 0.5;
@@ -23,7 +24,6 @@ define([
       this.body.height = 8;
       this.body.offset.x = -4;
       this.body.offset.y = -4;
-      this.addClass('enemies');
     },
 
     activate: function (callback) {

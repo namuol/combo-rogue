@@ -25,6 +25,8 @@ define([
     },
 
     splash: function () {
+      this.resume().show();
+
       this.x = 0;
       this.y = 0;
 
@@ -54,6 +56,7 @@ define([
     splashOut: function () {
       this.tween('y', cg.height, 1000).then(function () {
         this.emit('done');
+        this.pause();
       });
     },
 

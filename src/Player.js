@@ -16,7 +16,6 @@ define([
 
       this.anchorX = 0.5;
       this.anchorY = 0.5;
-
       this.body.bounce = 0;
       this.body.width = this.width;
       this.body.height = this.height;
@@ -24,8 +23,6 @@ define([
       this.body.offset.y = -this.height/2;
 
       this.controls = cg.input.controls.player;
-      this.speed = 60;
-
       this.on('vx', function (value) {
         this.body.v.x = value * this.speed;
       });
@@ -35,6 +32,18 @@ define([
       });
 
       this.on(cg.input, 'mouseDown', this.shoot);
+
+      this.reset();
+    },
+
+    reset: function (properties) {
+      this._super(properties);
+
+      this.speed = 60;
+      this.alive = true;
+      this.visible = true;
+      this.body.v.zero();
+      this.resume();
     },
 
     shoot: function () {
@@ -48,8 +57,20 @@ define([
       }));
     },
 
+    die: function () {
+      this.alive = false;
+      this.visible = false;
+      cg('#main').set('shake', 5).tween('shake', 0, 500);
+      cg('#gameOver').splash();
+      this.pause();
+    },
+
     update: function () {
       this._super();
+
+      if (!this.alive) {
+        return;
+      }
 
       if (cg.input.mouse.x < this.x) {
         this.flipX = true;
@@ -57,6 +78,10 @@ define([
         this.flipX = false;
       }
 
+      var enemy;
+      if (enemy = this.touches(cg('enemies'))) {
+        this.die();
+      }
     }
   });
 

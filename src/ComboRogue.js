@@ -1,16 +1,20 @@
 define([
   'cs!combo/cg',
   'TitleScreen',
-  'Game'
+  'Game',
+  'GameOver'
 ], function (
   cg,
   TitleScreen,
-  Game
+  Game,
+  GameOver
 ) {
 
   var ComboRogue = cg.Scene.extend('ComboRogue', {
     constructor: function (properties) {
       this._super(properties);
+
+      cg.Text.defaults.font = 'font';
 
       cg.physics.gravity.zero();
 
@@ -35,12 +39,29 @@ define([
       this.game.pause().hide();
 
       this.on(this.title, 'done', function () {
-        this.game.resume().show();
+        this.game.resume().restart().show();
       });
+
+      this.gameOver = this.addChild(new GameOver({
+        id: 'gameOver'
+      }));
+
+      this.on(this.gameOver, 'done', function () {
+        this.game.resume().restart().show();
+      });
+
+      this.gameOver.pause().hide();
+
+      this.shake = 0;
     },
 
     update: function () {
       this._super();
+
+      if (this.shake > 0) {
+        this.x = cg.rand.normal() * this.shake;
+        this.y = cg.rand.normal() * this.shake;
+      }
     }
   });
 
