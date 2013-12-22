@@ -1,11 +1,13 @@
 define([
   'cs!combo/cg',
   'Player',
-  'Slime'
+  'Slime',
+  'Coin'
 ], function (
   cg,
   Player,
-  Slime
+  Slime,
+  Coin
 ) {
 
   // We only have one kind of enemy right now, but we can
@@ -14,9 +16,8 @@ define([
     Slime
   ];
 
-  var EVENT_TYPES = [
-    'enemy',
-    'item'
+  var ITEM_TYPES = [
+    Coin
   ];
 
   var Game = cg.Scene.extend('Game', {
@@ -45,6 +46,9 @@ define([
       // Clear all enemies:
       cg('enemies').destroy();
 
+      // Clear all items:
+      cg('items').destroy();
+
       this.player.reset({
         x: cg.width/2,
         y: cg.height/2
@@ -53,47 +57,60 @@ define([
       this._score = 0;
       this.scoreText.string = '0';
 
-      if (this.nextEvent) {
-        this.nextEvent.stop();
+      if (this.nextEnemyEvent) {
+        this.nextEnemyEvent.stop();
       }
+      this.nextEnemyEvent = this.delay(1000, this.spawnEnemy);
 
-      this.nextEvent = this.delay(1000, this.newGameplayEvent);
+      if (this.nextItemEvent) {
+        this.nextItemEvent.stop();
+      }
+      this.nextItemEvent = this.delay(cg.rand(1000,10000), this.spawnItem);
 
       return this;
     },
 
-    newGameplayEvent: function () {
+    randomPosition: function (minDistance, maxDistance) {
+      // Let's make sure enemies don't spawn on top of
+      //  or directly next to the player:
+      var distance = cg.rand(minDistance, maxDistance),
+          position = (new cg.math.Vector2).randomize(distance).add(this.player);
+
+      // Ensure the enemy's position is in the bounds of the game
+      //  (and also add 8px of padding on each side):
+      position.x = cg.math.wrap(position.x, 8, cg.width-16);
+      position.y = cg.math.wrap(position.y, 8, cg.height-16);
+      return position;
+    },
+
+    spawnEnemy: function () {
       if (!this.player.alive) {
         return;
       }
 
-      switch cg.rand.pick EVENT_TYPES {
-        case 'enemy':
-          this.spawnEnemy();
-          break;
-        case 'item':
-          // We don't have any items to spawn yet.
-          break;
-      }
-
-      this.nextEvent = this.delay(cg.rand(1000,3000), this.newGameplayEvent);
-    },
-
-    spawnEnemy: function () {
-      // Let's make sure enemies don't spawn on top of
-      //  or directly next to the player:
-      var distance = cg.rand(20, cg.width/2),
-          position = (new cg.math.Vector2).randomize(distance).add(this.player),
+      var position = this.randomPosition(30, cg.width/2),
           enemyType = cg.rand.pick(ENEMY_TYPES);
-
-      // Ensure the enemy's position is in the bounds of the game:
-      position.x = cg.math.wrap(position.x, 0, cg.width);
-      position.y = cg.math.wrap(position.y, 0, cg.height);
 
       this.entities.addChild(new enemyType({
         x: position.x,
         y: position.y
       }));
+      this.nextEnemyEvent = this.delay(cg.rand(500,3000), this.spawnEnemy);
+    },
+
+    spawnItem: function () {
+      if (!this.player.alive) {
+        return;
+      }
+
+      var position = this.randomPosition(20, cg.width/2),
+          itemType = cg.rand.pick(ITEM_TYPES);
+
+      this.entities.addChild(new itemType({
+        x: position.x,
+        y: position.y
+      })).dropIn();
+      this.nextItemEvent = this.delay(cg.rand(1000,10000), this.spawnItem);
     },
 
     score: function (amount) {

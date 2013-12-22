@@ -6,7 +6,8 @@
     "slime": "assets/slime.png"
   },
   "sheets": {
-    "projectiles": ["assets/projectiles.png", 8, 7]
+    "projectiles": ["assets/projectiles.png", 8, 7],
+    "coins": ["assets/coins.png", 7,7]
   },
   "fonts": {
     "font": "assets/font.png",
